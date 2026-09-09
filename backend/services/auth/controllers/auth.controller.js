@@ -68,7 +68,7 @@ export const login = async (req, res) => {
 // @desc    Logout user
 // @route   POST /api/auth/logout
 export const logout = (req, res) => {
-  res.cookie("session", sessionID, { httpOnly: true, secure: false, sameSite: "strict", maxAge: 7 * 24 * 60 * 60 * 1000 });
+  res.cookie("jwt", "", { maxAge: 0 });
   res.status(200).json({ message: "Logged out successfully" });
 };
 
@@ -109,6 +109,9 @@ export const googleAuth = async (req, res) => {
         avatar: picture,
       });
     }
+
+
+
 
     generateToken(user._id, res);
     res.status(200).json(user);

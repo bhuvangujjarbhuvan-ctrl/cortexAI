@@ -1,35 +1,30 @@
 import express from "express";
 import dotenv from "dotenv";
-import cors from "cors";
-import { createProxyMiddleware } from "http-proxy-middleware";
+import proxy from "express-http-proxy";
+
 
 dotenv.config();
+import cors from "cors";
+import cookieParser from "cookie-parser";
 
 const port = process.env.PORT;
+
 const app = express();
 
-// CORS — allow any localhost port with credentials
 app.use(cors({
-    origin: /^http:\/\/localhost:\d+$/,
-    credentials: true,
-}));
+    origin: process.env.FRONTEND_URL,
+    credentials: true
+}))
 
-// Proxy /auth → auth service (http-proxy-middleware handles body streaming correctly)
-app.use("/auth", createProxyMiddleware({
-    target: process.env.AUTH_SERVICE,
-    changeOrigin: true,
-    pathRewrite: { "^/auth": "" },  // /auth/google → /google on auth service
-    on: {
-        error: (err, req, res) => {
-            console.error("Proxy error:", err.message);
-            res.status(502).json({ message: "Auth service unavailable" });
-        }
-    }
-}));
+app.use(cookieParser())
+
+app.use("/auth", proxy(process.env.AUTH_SERVICE))
 
 app.get("/", (req, res) => {
-    res.json({ message: "hello from gateway" });
-});
+    res.json({ message: "hello from gateway" })
+})
+
+
 
 app.listen(port, () => {
     console.log(`gateway started at ${port}`);

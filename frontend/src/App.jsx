@@ -17,10 +17,10 @@ function App() {
   const googleLogin = async () => {
     // Pass browserPopupRedirectResolver to avoid COOP window.closed error
     const data = await signInWithPopup(auth, googleProvider, browserPopupRedirectResolver)
-    console.log(data)                          // UserCredentialImpl ✅
     const token = await data.user.getIdToken()
     console.log(token)                         // Firebase ID token ✅
-    await handleLogin(token)
+     await handleLogin(token)
+    console.log(data)                          // UserCredentialImpl ✅
   };
 
   return (
