@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { auth, googleProvider, browserPopupRedirectResolver } from '../utils/firebase'
 import { signInWithPopup } from 'firebase/auth'
 
@@ -8,7 +8,6 @@ import getCurrentUser from './features/getCurrent.User.js'
 import { setUserdata } from './redux/userSlice.js'
 
 function App() {
-
   const dispatch = useDispatch()
   useEffect(() => {
     const getUser = async () => { 
