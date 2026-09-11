@@ -3,8 +3,11 @@ import { auth, googleProvider, browserPopupRedirectResolver } from '../../utils/
 import { signInWithPopup } from 'firebase/auth'
 import api from '../../utils/axios'
 import { FaGoogle } from "react-icons/fa";
+import { useSelector } from 'react-redux';
 
 function Home() {
+    const { userData } = useSelector(state=>state.user)
+    console.log(userData)
     const handleLogin = async (token) => {
         try {
             const { data } = await api.post('/api/auth/login', { token }, { withCredentials: true })
@@ -40,5 +43,4 @@ function Home() {
         </div>
     )
 }
-
 export default Home
