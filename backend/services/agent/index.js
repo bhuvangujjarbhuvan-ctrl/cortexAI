@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
-import { router } from "./graph/router.js";
+import agentRoutes from "./routes/agent.route.js";
 
 
 
@@ -12,7 +12,7 @@ const port = process.env.PORT;
 
 const app = express();
 app.use(express.json());
-app.use("/",router)
+app.use("/", agentRoutes)
 app.get("/", (req, res) => {
     res.json({ message: "hello from agent" })
 })
