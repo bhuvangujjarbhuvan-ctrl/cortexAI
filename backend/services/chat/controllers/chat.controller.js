@@ -6,7 +6,7 @@ export const createConversation = async (req, res) => {
         const userId = req.headers["x-user-id"];
         console.log("userID: ", userId)
         const conversation = await Conversation.create({
-            userId: userId
+            userID: userId
         })
         return res.status(200).json(conversation)
     } catch (error) {
@@ -19,7 +19,7 @@ export const getConversations = async (req, res) => {
         const userId = req.headers["x-user-id"];
         console.log("userID: ", userId)
         const conversation = await Conversation.find({
-            userId: userId
+            userID: userId
         }).sort({ updatedAt: -1 })
 
         return res.status(200).json(conversation)
@@ -44,7 +44,7 @@ export const saveMessage = async(req,res)=>{
     try{
         const {conversationID,role,content}=req.body
         const message = await Message.create({
-            conversationID,
+            conversationId: conversationID,
             content,
             role
         })
@@ -59,8 +59,8 @@ export const getMessages = async(req,res)=>{
     try{
         const {conversationID}=req.body
         const messages = await Message.find({
-            conversationId:req.params.conversationId
-        }).sort({createAt:1})
+            conversationId: conversationID || req.params.conversationId
+        }).sort({createdAt:1})
         return res.status(200).json(messages)
     } catch (error){
         return res.status(500).json({message:`get messages error ${error}`})
