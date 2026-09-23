@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { PanelLeftIcon, PenSquare, PenBoxIcon, Plus, MessageSquare, User, Coins, LogOut } from 'lucide-react'
+import { PanelLeftIcon, PenSquare, PenBoxIcon, Plus, MessageSquare, User, Coins, LogOut, PanelRight } from 'lucide-react'
 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -35,6 +35,22 @@ function SideBar() {
     const data = await createConversation()
     dispatch(addConversation(data))
   }
+
+if (collapsed){
+  return(
+    <div className='hidden lg:flex flex-col items-center w-[56px] h-screen bg-[#0d0f14] border-r border-white/[0.06] py-4 gap-1 shrink-0'>
+      <button className='flex items-center w-9 h-9 rounded-xl text-slate-500 hover:text-slate-200 hover:bg-white/[0.05] transition-colors duration-150 border-none cursor-pointer mb-1' onClick={()=>setCollapsed(false)}>
+        <PanelRight/>
+      </button>
+
+      <button className='flex items-center justify-center w-9 h-9 rounded-xl text-slate-500 hover:text-slate-200 hover:bg-white/[0.05] transition-colors duration-150 bg-transparent border-none cursor-pointer mb-1' onClick={handleCreateConversation}>
+        <Plus size={17}/>
+      </button>
+
+
+    </div>
+  )
+}
 
   return (
     <div className='fixed lg:static inset-y-0 left-0 z-50 w-[270px] h-screen shrink-0 bg-[#0d0f14] border-r border-white/[0.06]'>
@@ -132,6 +148,8 @@ function SideBar() {
       </div>
     </div>
   )
+
+
 }
 
 export default SideBar
