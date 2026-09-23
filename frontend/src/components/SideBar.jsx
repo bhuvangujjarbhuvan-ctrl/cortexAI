@@ -47,6 +47,20 @@ if (collapsed){
         <Plus size={17}/>
       </button>
 
+              <div className='flex-1 overflow-y-auto px-2.5 pb-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
+          {conversations.map((conv, i) => {
+            const isActive = selectedConversation?._id == conv?._id
+            return (
+              <div onClick={() => dispatch(setSelectedConversation(conv))} className={`flex items-center gap-2.5 cursor-pointer mb-0.5 px-3 py-2.5 rounded-[10px] border transition-colors duration-150 ${isActive ? "bg-indigo-500/10 border-white/[0.18]" :
+                "bg-transparent border-transparent"}`}>
+                <div className={`flex items-center justify-center shrink-0 w-[28px] h-[28px] rounded-lg transition-colors duration-150 ${isActive ? "bg-indigo-500/15 text-indigo-400" : "bg-white/[0.05] text-slate-500"}`}>
+                  <MessageSquare size={13} />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
 
     </div>
   )
