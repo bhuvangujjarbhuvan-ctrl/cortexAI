@@ -158,12 +158,11 @@ if (collapsed){
               Login
             </button>}
         </div>
-
       </div>
     </div>
   )
 
-
+  
 }
 
 export default SideBar
